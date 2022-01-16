@@ -1,10 +1,16 @@
-img = imread('test_image.jpg');
+img = imread('1.jpg');
+[~, ~, c] = size(img);
+if c == 3
+    img_gray = rgb2gray(img);
+else
+    img_gray = img;
+end
 % img = rgb2gray(img);
-img_float = double(img) / 255;
-% img_float = img_float(:, 1:350);
+img_float = double(img_gray) / 255;
 img_float = double(img_float > 0.5);
-% img_float = padarray(img_float,3,0);
-% imshow(img_float);
+% img_float = edge(img_float,'Canny');
+img_float = padarray(img_float, [3, 3]);
+imshow(img_float);
 [img_out, res] = raster_scan(img_float)
 [h, w] = size(img_float);
 a = zeros(h, w);
